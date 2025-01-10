@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "username": "user123",
+      "passwordHash": "5d41402abc4b2a76b9719d911017c592",
+      "name": "Alice Smith"
+    },
+    {
+      "username": "john456",
+      "passwordHash": "e99a18c428cb38d5f260853678922e03",
+      "name": "John Doe"
+    },
+    {
+      "username": "jane789",
+      "passwordHash": "ab56b4d92b40713acc5af89985d4b786",
+      "name": "Jane Austen"
+    },
+    {
+      "username": "mark001",
+      "passwordHash": "827ccb0eea8a706c4c34a16891f84e7b",
+      "name": "Mark Twain"
+    },
+    {
+      "username": "sara567",
+      "passwordHash": "6c6f64694d64324d656e61787453616c74",
+      "name": "Sara Lee"
+    },
+    {
+      "username": "paul888",
+      "passwordHash": "098f6bcd4621d373cade4e832627b4f6",
+      "name": "Paul Simon"
+    },
+    {
+      "username": "emma444",
+      "passwordHash": "25d55ad283aa400af464c76d713c07ad",
+      "name": "Emma Brown"
+    },
+    {
+      "username": "lucy222",
+      "passwordHash": "21232f297a57a5a743894a0e4a801fc3",
+      "name": "Lucy Gray"
+    },
+    {
+      "username": "chris333",
+      "passwordHash": "ee11cbb19052e40b07aac0ca060c23ee",
+      "name": "Chris Martin"
+    },
+    {
+      "username": "mike999",
+      "passwordHash": "b2d5ecdf78d56bc8c11d53f6b8e2633a",
+      "name": "Mike Tyson"
+    }
+  ]
+}
