@@ -1,4 +1,5 @@
 const blogRouter = require("express").Router();
+const middleware = require("../utils/middleware");
 const jwt = require("jsonwebtoken");
 const Blog = require("../models/blogs");
 const User = require("../models/users");
@@ -12,7 +13,7 @@ blogRouter.get("/", async (request, response) => {
   response.json(blogs);
 });
 
-blogRouter.post("/", async (request, response) => {
+blogRouter.post("/", middleware.userExtractor, async (request, response) => {
   const body = request.body;
   const user = request.user;
   const token = request.token;
@@ -28,7 +29,7 @@ blogRouter.post("/", async (request, response) => {
   const blog = new Blog({
     title: body.title,
     author: body.author,
-    url: body.url,
+    url: body.url ?? null,
     likes: body.likes || 0,
     users: user.id,
   });
@@ -63,7 +64,7 @@ blogRouter.delete("/:id", async (request, response) => {
   response.status(204).end();
 });
 
-blogRouter.put("/:id", async (request, response) => {
+blogRouter.put("/:id", middleware.userExtractor, async (request, response) => {
   const body = request.body;
   const blog = {
     likes: body.likes,
