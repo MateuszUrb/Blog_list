@@ -1,4 +1,14 @@
 const mongoose = require("mongoose");
+const commentSchema = new mongoose.Schema(
+  {
+    comment: {
+      type: String,
+      required: [true, "Comment is required"],
+    },
+  },
+  { _id: true },
+);
+
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -19,6 +29,7 @@ const blogSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  comments: [commentSchema],
 });
 
 blogSchema.set("toJSON", {
@@ -26,6 +37,12 @@ blogSchema.set("toJSON", {
     returnedObj.id = returnedObj._id.toString();
     delete returnedObj._id;
     delete returnedObj.__v;
+    if (returnedObj.comments) {
+      returnedObj.comments = returnedObj.comments.map((comment) => ({
+        id: comment._id.toString(),
+        comment: comment.comment,
+      }));
+    }
   },
 });
 

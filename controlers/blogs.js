@@ -3,6 +3,7 @@ const middleware = require("../utils/middleware");
 const jwt = require("jsonwebtoken");
 const Blog = require("../models/blogs");
 const User = require("../models/users");
+const { request, response } = require("express");
 
 blogRouter.get("/", async (request, response) => {
   const blogs = await Blog.find({}).populate("users", {
@@ -69,13 +70,37 @@ blogRouter.put("/:id", middleware.userExtractor, async (request, response) => {
   const blog = {
     likes: body.likes,
   };
-  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
-    new: true,
-  });
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    id,
+    { $push: { comments: comment } },
+    { new: true },
+  );
   if (!updatedBlog) {
     return response.status(404).json({ error: "invalid Id" });
   }
 
   response.json(updatedBlog);
+});
+
+blogRouter.post("/:id/comments", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { comment } = request.body;
+    const newComment = { comment: comment };
+
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { $push: { comments: newComment } },
+      { new: true },
+    );
+
+    if (!updatedBlog) {
+      return response.status(404).json({ error: "invalid Id" });
+    }
+
+    response.json(updatedBlog);
+  } catch (error) {
+    response.status(500).json({ error: "Internal Server Error" });
+  }
 });
 module.exports = blogRouter;
