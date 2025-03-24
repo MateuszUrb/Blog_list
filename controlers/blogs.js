@@ -70,11 +70,9 @@ blogRouter.put("/:id", middleware.userExtractor, async (request, response) => {
   const blog = {
     likes: body.likes,
   };
-  const updatedBlog = await Blog.findByIdAndUpdate(
-    id,
-    { $push: { comments: comment } },
-    { new: true },
-  );
+  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
+    new: true,
+  });
   if (!updatedBlog) {
     return response.status(404).json({ error: "invalid Id" });
   }

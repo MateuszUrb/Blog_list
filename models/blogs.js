@@ -5,6 +5,19 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: [true, "Comment is required"],
     },
+    created: {
+      type: String,
+      required: true,
+      default: () =>
+        new Date().toLocaleString("en-GB", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }),
+    },
   },
   { _id: true },
 );
@@ -41,6 +54,7 @@ blogSchema.set("toJSON", {
       returnedObj.comments = returnedObj.comments.map((comment) => ({
         id: comment._id.toString(),
         comment: comment.comment,
+        created: comment.created,
       }));
     }
   },
